@@ -1,12 +1,17 @@
 class Api::V1::ForecastController < ApplicationController
   def index
-    coordinates = Google::GeocodingService.call(params[:location])
-    forecast = OpenWeather::ForecastService.call(latlon(coordinates))
+    geocode = get_geocode(params[:location])
+    forecast = get_forecast(geocode)
+    render json: ForecastSerializer.new(Forecast.new(geocode, forecast))
   end
 
   private
 
-  def latlon(coordinates)
-    coordinates[:results][0][:geometry][:location]
+  def get_geocode(location)
+    Google::GeocodingService.call(location)
+  end
+
+  def get_forecast(geocode)
+    OpenWeather::ForecastService.call(geocode)
   end
 end
