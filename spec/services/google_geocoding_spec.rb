@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe "Google Geocoding" do
+describe "Google Geocoding API" do
   xit "returns long/lat coords from a given address" do
     url = "maps/api/geocode/json"
     params = { address: "denver",
