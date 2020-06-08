@@ -5,7 +5,7 @@ class Api::V1::UsersController < ApplicationController
       user.create_key
       render json: UserSerializer.new(user)
     else
-      render json: ErrorSerializer.new(user.errors)
+      render json: ErrorSerializer.call(user.errors)
     end
   end
 
