@@ -1,6 +1,6 @@
 class Api::V1::FoodieController < ApplicationController
   def index
-    directions = Direction.new(get_directions)
+    directions = Google::DirectionsService.call(params)
     restaurant = Restaurant.new(get_restaurant(params, directions))
     forecast = get_forecast(params, directions)
     foodie = Foodie.new(directions, restaurant, forecast)
@@ -8,16 +8,6 @@ class Api::V1::FoodieController < ApplicationController
   end
 
   private
-
-  def get_directions
-    connection = Faraday.new("https://maps.googleapis.com/")
-    url = "maps/api/directions/json"
-    directions_params = { origin: params[:start],
-               destination: params[:end],
-               key: ENV['GEOCODE_KEY']}
-    response = connection.get(url, directions_params)
-    JSON.parse(response.body, symbolize_names: true)
-  end
 
   def get_restaurant(params, directions)
     connection = Faraday.new("https://developers.zomato.com")
