@@ -1,7 +1,8 @@
 class OpenWeather::CurrentWeatherService
   def self.call(directions)
     request = request('data/2.5/onecall', search_params(directions))
-    parse_response(request)
+    response = parse_response(request)
+    CurrentWeather.new(response)
   end
 
   private

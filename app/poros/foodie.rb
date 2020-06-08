@@ -17,9 +17,8 @@ class Foodie
   end
 
   def forecast
-    temp = (((@forecast[:current][:temp]) - 273.15) * (9/5) + 32).round(1)
-    { "summary": @forecast[:current][:weather][0][:description],
-      "temperature": temp }
+    { "summary": @forecast.summary,
+      "temperature": @forecast.temperature }
   end
 
   def restaurant
