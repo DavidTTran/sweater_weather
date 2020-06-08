@@ -1,14 +1,44 @@
 class Api::V1::FoodieController < ApplicationController
   def index
+    directions = Direction.new(get_directions)
+    restaurant = Restaurant.new(get_restaurant(params, directions))
+    forecast = get_forecast(params, directions)
+    require "pry"; binding.pry
+  end
+
+  private
+
+  def get_directions
     connection = Faraday.new("https://maps.googleapis.com/")
     url = "maps/api/directions/json"
     directions_params = { origin: params[:start],
                destination: params[:end],
                key: ENV['GEOCODE_KEY']}
     response = connection.get(url, directions_params)
-    directions = JSON.parse(response.body, symbolize_names: true)
-    Direction.new(directions)
+    JSON.parse(response.body, symbolize_names: true)
+  end
 
-    
+  def get_restaurant(params, directions)
+    connection = Faraday.new("https://developers.zomato.com")
+    url = "api/v2.1/search"
+    params = { count: 1,
+               cuisine: params[:search],
+               lat: directions.end_coords[:lat],
+               lon: directions.end_coords[:lng] }
+    header = { "user-key": ENV['ZOMATO_KEY'] }
+    request = connection.get(url, params, header)
+    JSON.parse(request.body, symbolize_names: true)
+  end
+
+  def get_forecast(params, directions)
+    require "pry"; binding.pry
+    connection = Faraday.new("https://api.openweathermap.org")
+    url = "data/2.5/onecall"
+    params = { lat: directions.end_coords[:lat],
+               lon: directions.end_coords[:lon],
+               exclude: 'hourly,daily,minutely',
+               appid: ENV['FORECAST_KEY']}
+    request = connection.get(url, params)
+    JSON.parse(request.body, symbolize_names: true)
   end
 end

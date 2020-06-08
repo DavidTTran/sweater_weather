@@ -4,7 +4,6 @@ class Direction
   end
 
   def start_location
-    require "pry"; binding.pry
     @directions[:routes][0][:legs][0][:start_address]
   end
 
