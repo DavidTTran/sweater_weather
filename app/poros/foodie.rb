@@ -2,9 +2,9 @@ class Foodie
   attr_reader :id
   def initialize(directions_info, restaurant_info, forecast_info)
     @directions = directions_info
-    @restraunt = restaurant_info
+    @restaurant = restaurant_info
     @forecast = forecast_info
-    @test = forecast
+    @test = restaurant
     @id = 1
   end
 
@@ -17,10 +17,13 @@ class Foodie
   end
 
   def forecast
+    temp = (((@forecast[:current][:temp]) - 273.15) * (9/5) + 32).round(1)
     { "summary": @forecast[:current][:weather][0][:description],
-      "temperature": @forecast[:current][:temp] }
+      "temperature": temp }
   end
 
   def restaurant
+    { "name": @restaurant.name,
+      "address": @restaurant.address }
   end
 end

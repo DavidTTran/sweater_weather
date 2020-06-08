@@ -3,7 +3,8 @@ class Api::V1::FoodieController < ApplicationController
     directions = Direction.new(get_directions)
     restaurant = Restaurant.new(get_restaurant(params, directions))
     forecast = get_forecast(params, directions)
-    Foodie.new(directions, restaurant, forecast)
+    foodie = Foodie.new(directions, restaurant, forecast)
+    render json: FoodieSerializer.new(foodie)
   end
 
   private
