@@ -3,7 +3,7 @@ class Api::V1::FoodieController < ApplicationController
     directions = Direction.new(get_directions)
     restaurant = Restaurant.new(get_restaurant(params, directions))
     forecast = get_forecast(params, directions)
-    require "pry"; binding.pry
+    Foodie.new(directions, restaurant, forecast)
   end
 
   private
@@ -31,13 +31,12 @@ class Api::V1::FoodieController < ApplicationController
   end
 
   def get_forecast(params, directions)
-    require "pry"; binding.pry
-    connection = Faraday.new("https://api.openweathermap.org")
-    url = "data/2.5/onecall"
-    params = { lat: directions.end_coords[:lat],
-               lon: directions.end_coords[:lon],
-               exclude: 'hourly,daily,minutely',
-               appid: ENV['FORECAST_KEY']}
+    connection = Faraday.new("https://api.openweathermap.org/")
+    url = 'data/2.5/onecall'
+    params = { appid: ENV['FORECAST_KEY'],
+               lat: directions.end_coords[:lat],
+               lon: directions.end_coords[:lng],
+               exclude: 'hourly,daily,minutely' }
     request = connection.get(url, params)
     JSON.parse(request.body, symbolize_names: true)
   end
