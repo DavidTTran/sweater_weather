@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 describe "Open Weather API" do
-  xit "returns forcast information given longitude latitude" do
+  it "returns forcast information given longitude latitude" do
     connection = Faraday.new("https://api.openweathermap.org/")
     url = "data/2.5/onecall"
     params = { appid: ENV['FORECAST_KEY'],

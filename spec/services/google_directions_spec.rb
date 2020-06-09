@@ -6,7 +6,7 @@ describe "Google Direction API" do
     url = "maps/api/directions/json"
     params = { origin: "denver,co",
                destination: "pueblo,co",
-               key: ENV['GEOCODE_KEY']}
+               key: ENV['GOOGLE_KEY']}
     request = connection.get(url, params)
 
     parsed = JSON.parse(request.body, symbolize_names: true)
