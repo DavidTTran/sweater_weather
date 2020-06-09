@@ -13,4 +13,9 @@ class ErrorSerializer
     { "status": 400,
       "errors": "Email is incorrect." }
   end
+
+  def self.invalid_key
+    { "status": 401,
+      "errors": "API key is invalid." }
+  end
 end
