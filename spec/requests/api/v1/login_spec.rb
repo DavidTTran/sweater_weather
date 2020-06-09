@@ -24,6 +24,18 @@ describe "login page" do
     post "/api/v1/sessions", params: params, as: :json
     parsed = JSON.parse(response.body, symbolize_names: true)
     expect(parsed[:status]).to eq(400)
-    expect(parsed[:errors]).to eq("Invalid credentials")
+    expect(parsed[:errors]).to eq("Password is incorrect.")
+  end
+
+  it "returns an error if email doesn't exist" do
+    api_key = "111111111111"
+    User.create(email: "whatever@example.com", password: "password", api_key: api_key)
+    params = { "email": "wrongemail@example.com",
+               "password": "password" }
+
+    post "/api/v1/sessions", params: params, as: :json
+    parsed = JSON.parse(response.body, symbolize_names: true)
+    expect(parsed[:status]).to eq(400)
+    expect(parsed[:errors]).to eq("Email is incorrect.")
   end
 end
