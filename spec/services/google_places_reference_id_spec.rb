@@ -1,11 +1,11 @@
 require 'rails_helper'
 
-describe "Google places API" do
-  it "can search for a place and return a photo reference id" do
-    connection = Faraday.new("https://maps.googleapis.com/")
-    url = "maps/api/place/findplacefromtext/json"
+describe 'Google places API' do
+  it 'can search for a place and return a photo reference id' do
+    connection = Faraday.new('https://maps.googleapis.com/')
+    url = 'maps/api/place/findplacefromtext/json'
     params = { key: ENV['GOOGLE_KEY'],
-               input: "Denver International Airport",
+               input: 'Denver International Airport',
                inputtype: 'textquery',
                fields: 'photo' }
     request = connection.get(url, params)

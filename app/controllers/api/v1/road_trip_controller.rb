@@ -21,6 +21,6 @@ class Api::V1::RoadTripController < ApplicationController
   end
 
   def valid_key?(params)
-    User.find_by(api_key: params["api_key"])
+    User.find_by(api_key: params['api_key'])
   end
 end

@@ -5,8 +5,6 @@ class OpenWeather::ForecastService
     Forecast.new(response, coordinates)
   end
 
-  private
-
   def self.forecast_params(coordinates)
     { appid: ENV['FORECAST_KEY'],
       lat: coordinates.latitude,
@@ -15,7 +13,7 @@ class OpenWeather::ForecastService
   end
 
   def self.connection
-    Faraday.new("https://api.openweathermap.org/")
+    Faraday.new('https://api.openweathermap.org/')
   end
 
   def self.request(url, params)

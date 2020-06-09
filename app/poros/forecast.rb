@@ -7,9 +7,9 @@ class Forecast
   end
 
   def location_info(coordinates)
-    { "location": coordinates.location,
-      "longitude": coordinates.longitude,
-      "latitude": coordinates.latitude }
+    { 'location': coordinates.location,
+      'longitude': coordinates.longitude,
+      'latitude': coordinates.latitude }
   end
 
   def hourly

@@ -11,8 +11,6 @@ class Google::ImageSearch
     Google::ImageSearch.new(image_html.env.url.to_s)
   end
 
-  private
-
   def self.image_params(reference)
     { key: ENV['GOOGLE_KEY'],
       photoreference: reference,
@@ -20,7 +18,7 @@ class Google::ImageSearch
   end
 
   def self.connection
-    Faraday.new("https://maps.googleapis.com/")
+    Faraday.new('https://maps.googleapis.com/')
   end
 
   def self.request(url, params)

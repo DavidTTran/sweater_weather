@@ -5,8 +5,6 @@ class OpenWeather::DestinationForecastService
     DestinationWeather.new(response, directions.time_unix)
   end
 
-  private
-
   def self.search_params(directions)
     { appid: ENV['FORECAST_KEY'],
       lat: directions.end_coords[:lat],
@@ -15,7 +13,7 @@ class OpenWeather::DestinationForecastService
   end
 
   def self.connection
-    Faraday.new("https://api.openweathermap.org/")
+    Faraday.new('https://api.openweathermap.org/')
   end
 
   def self.request(url, params)

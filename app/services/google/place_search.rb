@@ -5,8 +5,6 @@ class Google::PlaceSearch
     response[:candidates][0][:photos][0][:photo_reference]
   end
 
-  private
-
   def self.place_params(location)
     { key: ENV['GOOGLE_KEY'],
       input: location,
@@ -15,7 +13,7 @@ class Google::PlaceSearch
   end
 
   def self.connection
-    Faraday.new("https://maps.googleapis.com/")
+    Faraday.new('https://maps.googleapis.com/')
   end
 
   def self.request(url, params)

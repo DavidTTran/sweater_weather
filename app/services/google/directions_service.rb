@@ -1,16 +1,14 @@
 class Google::DirectionsService
   def self.call(params)
-    params = { origin: params["origin"],
-               destination: params["destination"],
-               key: ENV['GOOGLE_KEY']}
-    response = parse_response(request("maps/api/directions/json", params))
+    params = { origin: params['origin'],
+               destination: params['destination'],
+               key: ENV['GOOGLE_KEY'] }
+    response = parse_response(request('maps/api/directions/json', params))
     Directions.new(response)
   end
 
-  private
-
   def self.connection
-    Faraday.new("https://maps.googleapis.com/")
+    Faraday.new('https://maps.googleapis.com/')
   end
 
   def self.request(url, params)
