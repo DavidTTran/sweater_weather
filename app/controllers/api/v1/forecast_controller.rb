@@ -1,17 +1,19 @@
 class Api::V1::ForecastController < ApplicationController
   def index
-    geocode = get_geocode(params[:location])
-    forecast = get_forecast(geocode)
-    render json: ForecastSerializer.new(Forecast.new(geocode, forecast))
+    forecast = get_forecast(params[:location])
+    if forecast
+      render json: ForecastSerializer.new(forecast)
+    else
+      render json: ErrorSerializer.no_results
+    end
   end
 
   private
 
-  def get_geocode(location)
-    Google::GeocodingService.call(location)
-  end
+  def get_forecast(location)
+    coordinates = Google::GeocodingService.call(location)
+    return nil if coordinates.nil?
 
-  def get_forecast(geocode)
-    OpenWeather::ForecastService.call(geocode)
+    OpenWeather::ForecastService.call(coordinates)
   end
 end

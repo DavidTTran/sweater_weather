@@ -1,20 +1,22 @@
 class Forecast
-  attr_reader :id, :geocode
-  def initialize(geocode, forecast)
+  attr_reader :id, :location, :forecast
+  def initialize(forecast, coordinates)
     @id = nil
-    @geocode = geocode
-    @weather = forecast
+    @location = location_info(coordinates)
+    @forecast = forecast
   end
 
-  def current
-    @weather[:current]
+  def location_info(coordinates)
+    { "location": coordinates.location,
+      "longitude": coordinates.longitude,
+      "latitude": coordinates.latitude }
   end
 
   def hourly
-    @weather[:hourly]
+    @forecast[:hourly]
   end
 
   def daily
-    @weather[:daily]
+    @forecast[:daily]
   end
 end

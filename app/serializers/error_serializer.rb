@@ -18,4 +18,11 @@ class ErrorSerializer
     { "status": 401,
       "errors": "API key is invalid." }
   end
+
+  def self.no_results
+    { "status": 200,
+      "data": {
+        "results": [] }
+    }
+  end
 end

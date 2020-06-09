@@ -1,8 +1,8 @@
 class Api::V1::RoadTripController < ApplicationController
   def create
-    road_trip_params = parse_body
-    if validate_key(road_trip_params)
-      render json: RoadTripSerializer.new(get_road_trip)
+    params = parse_body
+    if valid_key?(params)
+      render json: RoadTripSerializer.new(get_road_trip(params))
     else
       render json: ErrorSerializer.invalid_key
     end
@@ -10,17 +10,17 @@ class Api::V1::RoadTripController < ApplicationController
 
   private
 
-  def get_road_trip
-    directions = Google::DirectionsService.call(road_trip_params)
+  def get_road_trip(params)
+    directions = Google::DirectionsService.call(params)
     forecast = OpenWeather::DestinationForecastService.call(directions)
-    Roadtrip.new(directions, forecast)
+    RoadTrip.new(directions, forecast)
   end
 
   def parse_body
     JSON.parse(request.body.read)
   end
 
-  def validate_key(road_trip_params)
-    User.find_by(api_key: road_trip_params["api_key"])
+  def valid_key?(params)
+    User.find_by(api_key: params["api_key"])
   end
 end
