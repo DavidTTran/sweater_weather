@@ -7,7 +7,7 @@ describe "login page" do
     params = { "email": "whatever@example.com",
                "password": "password" }
 
-    post "/api/v1/sessions", params: params, as: :json
+    post "/api/v1/sessions", params: params.to_json
     expect(response).to be_successful
     parsed = JSON.parse(response.body, symbolize_names: true)
     expect(parsed[:data]).to_not be_empty
@@ -21,7 +21,7 @@ describe "login page" do
     params = { "email": "whatever@example.com",
                "password": "wrongpassword" }
 
-    post "/api/v1/sessions", params: params, as: :json
+    post "/api/v1/sessions", params: params.to_json
     parsed = JSON.parse(response.body, symbolize_names: true)
     expect(parsed[:status]).to eq(400)
     expect(parsed[:errors]).to eq("Password is incorrect.")
@@ -33,7 +33,7 @@ describe "login page" do
     params = { "email": "wrongemail@example.com",
                "password": "password" }
 
-    post "/api/v1/sessions", params: params, as: :json
+    post "/api/v1/sessions", params: params.to_json
     parsed = JSON.parse(response.body, symbolize_names: true)
     expect(parsed[:status]).to eq(400)
     expect(parsed[:errors]).to eq("Email is incorrect.")
