@@ -1,14 +1,16 @@
 class OpenWeather::ForecastService
-  def self.call(geocode)
-    parse_response(request('data/2.5/onecall', forecast_params(geocode)))
+  def self.call(coordinates)
+    request = request('data/2.5/onecall', forecast_params(coordinates))
+    response = parse_response(request)
+    Forecast.new(response, coordinates)
   end
 
   private
 
-  def self.forecast_params(geocode)
+  def self.forecast_params(coordinates)
     { appid: ENV['FORECAST_KEY'],
-      lat: geocode.latitude,
-      lon: geocode.longitude,
+      lat: coordinates.latitude,
+      lon: coordinates.longitude,
       exclude: 'minutely' }
   end
 

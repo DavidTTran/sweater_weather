@@ -1,16 +1,11 @@
 class Google::GeocodingService
-  attr_reader :current_location, :latitude, :longitude
-  def initialize(geocode)
-    @current_location = geocode[:results][0][:formatted_address]
-    @latitude = geocode[:results][0][:geometry][:location][:lat]
-    @longitude = geocode[:results][0][:geometry][:location][:lng]
-  end
-
   def self.call(location)
-    params = { key: ENV['GEOCODE_KEY'],
+    params = { key: ENV['GOOGLE_KEY'],
                address: location}
     response = parse_response(request("maps/api/geocode/json", params))
-    Google::GeocodingService.new(response)
+    return nil if response[:results] == []
+
+    Coordinates.new(response)
   end
 
   private

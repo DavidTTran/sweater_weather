@@ -14,7 +14,7 @@ class Google::ImageSearch
   private
 
   def self.image_params(reference)
-    { key: ENV['GEOCODE_KEY'],
+    { key: ENV['GOOGLE_KEY'],
       photoreference: reference,
       maxwidth: 1080 }
   end

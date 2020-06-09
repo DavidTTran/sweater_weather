@@ -8,7 +8,7 @@ class Google::PlaceSearch
   private
 
   def self.place_params(location)
-    { key: ENV['GEOCODE_KEY'],
+    { key: ENV['GOOGLE_KEY'],
       input: location,
       inputtype: 'textquery',
       fields: 'photos' }

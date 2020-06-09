@@ -2,7 +2,7 @@ class Google::DirectionsService
   def self.call(params)
     params = { origin: params["origin"],
                destination: params["destination"],
-               key: ENV['GEOCODE_KEY']}
+               key: ENV['GOOGLE_KEY']}
     response = parse_response(request("maps/api/directions/json", params))
     Directions.new(response)
   end
