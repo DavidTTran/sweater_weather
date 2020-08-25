@@ -1,12 +1,28 @@
 # Sweater Weather
 Developed with guidelines from [Turing Mod 3](https://backend.turing.io/module3/projects/sweater_weather/)
+Sweater weather is an API designed from a front-end
 
 ## Versions
 - Ruby 2.5.3
 - Rails 5.1.7
 
+## APIs Used
+- [Google Directions](https://developers.google.com/maps/documentation/directions/overview)
+- [Google Places](https://developers.google.com/places/web-service/search)
+- [Google Geocoding](https://developers.google.com/maps/documentation/geocoding/overview)
+- [OpenWeather API](https://openweathermap.org/api/one-call-api)
+
 ## Table of contents
+- [About](#sweater-weather)
+- [Versions](#versions)
+- [APIs used](#apis-used)
 - [Setup](#setup)
+- [Endpoints](#endpoints)
+  - [Forecast](#forecast)
+  - [Backgrounds](#backgrounds)
+  - [Users](#users)
+  - [Sessions](#sessions)
+- [Author](#author)
 
 ## Setup
 - `git clone git@github.com:DavidTTran/sweater_weather.git`
@@ -18,7 +34,7 @@ Developed with guidelines from [Turing Mod 3](https://backend.turing.io/module3/
 ### Forecast
 - Accepts a location parameter
 - GET request to `localhost:3000/api/v1/forecast?location=denver,co`
-- Example of response
+- Successful response
 ```
 {
     "data": {
@@ -127,7 +143,7 @@ Developed with guidelines from [Turing Mod 3](https://backend.turing.io/module3/
 ### Backgrounds
 - Accepts a location parameter
 - GET request to `localhost:3000/api/v1/backgrounds?location=denver,co`
-- Example of response
+- Successful response
 ```
 {
     "data": {
@@ -143,7 +159,7 @@ Developed with guidelines from [Turing Mod 3](https://backend.turing.io/module3/
 ### Users
 - Accepts an email, password, password_confirmation
 - POST request to `localhost:3000/api/v1/users?email=bob@example.com&password=example&password_confirmation=example`
-- Example response (successful)
+- Successful response
 ```
 {
     "data": {
@@ -156,4 +172,51 @@ Developed with guidelines from [Turing Mod 3](https://backend.turing.io/module3/
     }
 }
 ```
-- Example response (taken email)
+- Unsuccessful response (taken email)
+```
+{
+    "status": 400,
+    "errors": [
+        "Email has already been taken"
+    ]
+}
+```
+
+- Unsuccessful response (invalid passwords)
+```
+{
+    "status": 400,
+    "errors": [
+        "Email has already been taken",
+        "Password confirmation doesn't match Password"
+    ]
+}
+```
+
+### Sessions
+- Accepts an email and password
+- POST request to `localhost:3000/api/v1/sessions`
+  - Login information, in JSON, included in the body of the request 
+```
+{
+    "email": "bob@example.com",
+    "password": "example"
+}
+```
+
+- Successful response
+```
+{
+    "data": {
+        "id": "5",
+        "type": "user",
+        "attributes": {
+            "email": "test1@example.com",
+            "api_key": "edc3e47b-9350-4764-9e3b-701a0f5ff170"
+        }
+    }
+}
+```
+
+## Author
+[David Tran](https://github.com/DavidTTran)
