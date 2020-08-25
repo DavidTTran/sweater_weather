@@ -1,10 +1,25 @@
 # Sweater Weather
 Developed with guidelines from [Turing Mod 3](https://backend.turing.io/module3/projects/sweater_weather/)
-Sweater weather is an API designed from a front-end
+
+Sweater weather is an API that uses third party APIs for a front-end that requires current, hourly, and week forecasts, as well as an image for a given location.
 
 ## Versions
 - Ruby 2.5.3
 - Rails 5.1.7
+
+## Table of contents
+- [About](#sweater-weather)
+- [Versions](#versions)
+- [Table of contents](#table-of-contents)
+- [APIs used](#apis-used)
+- [Setup](#setup)
+- [Testing](#testing)
+- [Endpoints](#endpoints)
+  - [Forecast](#forecast)
+  - [Backgrounds](#backgrounds)
+  - [Users](#users)
+  - [Sessions](#sessions)
+- [Authors](#authors)
 
 ## APIs Used
 - [Google Directions](https://developers.google.com/maps/documentation/directions/overview)
@@ -12,22 +27,14 @@ Sweater weather is an API designed from a front-end
 - [Google Geocoding](https://developers.google.com/maps/documentation/geocoding/overview)
 - [OpenWeather API](https://openweathermap.org/api/one-call-api)
 
-## Table of contents
-- [About](#sweater-weather)
-- [Versions](#versions)
-- [APIs used](#apis-used)
-- [Setup](#setup)
-- [Endpoints](#endpoints)
-  - [Forecast](#forecast)
-  - [Backgrounds](#backgrounds)
-  - [Users](#users)
-  - [Sessions](#sessions)
-- [Author](#author)
-
 ## Setup
 - `git clone git@github.com:DavidTTran/sweater_weather.git`
-- `bundle`
+- `bundle` to install dependencies
 - `rails s` to run the server locally
+
+## Testing
+- Tested with RSpec
+- `bundle exec rspec` to run test suite
 
 ## Endpoints
 
@@ -218,5 +225,5 @@ Sweater weather is an API designed from a front-end
 }
 ```
 
-## Author
+## Authors
 [David Tran](https://github.com/DavidTTran)
